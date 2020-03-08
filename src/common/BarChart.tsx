@@ -6,7 +6,6 @@ interface BarChartProps {
     data: Array<any>,
     title: string,
     color: string
-
 }
 
 const chartConfig = {
@@ -25,7 +24,6 @@ export const BarChart: React.FC<BarChartProps> = ({ data, title, color}) => {
     const chartContainer: React.RefObject<HTMLCanvasElement> = useRef(null)
     const [chartInstance, setChartInstance] = useState(null);
     const parseChartData = data => {
-        console.log(data.length)
         var result = data.reduce((total, n) => (
             { 
                 ...total, 
@@ -37,7 +35,6 @@ export const BarChart: React.FC<BarChartProps> = ({ data, title, color}) => {
 
     useEffect(() => {
         var result = parseChartData(data)
-        console.log(chartContainer)
         if(chartContainer && chartContainer.current){
             if(data && data.length > 0){
                 chartConfig.data.labels = Object.keys(result)
