@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from './zuelliglogo.png';
+import {BarChart} from './common/BarChart'
 import './App.css';
 
 function App() {
@@ -22,6 +23,10 @@ function App() {
           Learn React
         </a>
       </header>
+
+      <BarChart
+      
+      />
     </div>
   );
 }
