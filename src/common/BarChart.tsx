@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Chart from "chart.js"
+import { CSSProperties } from '@material-ui/core/styles/withStyles';
 
 
 interface BarChartProps {
@@ -19,6 +20,11 @@ const chartConfig = {
         }]
     }
 }
+
+const section: CSSProperties = {
+    height: "100%"
+  }
+
 
 export const BarChart: React.FC<BarChartProps> = ({ data, title, color}) => {
     const chartContainer: React.RefObject<HTMLCanvasElement> = useRef(null)
@@ -47,6 +53,9 @@ export const BarChart: React.FC<BarChartProps> = ({ data, title, color}) => {
 
     
     return (
-    <canvas ref={chartContainer} />
+        <div style={section}>
+            <canvas ref={chartContainer}/>
+        </div>
+    
     )
 }
