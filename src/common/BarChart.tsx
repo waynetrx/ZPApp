@@ -29,22 +29,12 @@ const section: CSSProperties = {
 export const BarChart: React.FC<BarChartProps> = ({ data, title, color}) => {
     const chartContainer: React.RefObject<HTMLCanvasElement> = useRef(null)
     const [chartInstance, setChartInstance] = useState(null);
-    const parseChartData = data => {
-        var result = data.reduce((total, n) => (
-            { 
-                ...total, 
-                [n.country]: total[n.country] ? total[n.country] + 1 : 1
-            }),{});
-        console.log(result)
-        return result
-    }
 
     useEffect(() => {
-        var result = parseChartData(data)
         if(chartContainer && chartContainer.current){
-            if(data && data.length > 0){
-                chartConfig.data.labels = Object.keys(result)
-                chartConfig.data.datasets[0].data = Object.values(result)
+            if(data){
+                chartConfig.data.labels = Object.keys(data)
+                chartConfig.data.datasets[0].data = Object.values(data)
             }
             const newChartInstance = new Chart(chartContainer.current, chartConfig)
             setChartInstance(newChartInstance)

@@ -4,14 +4,12 @@ import { ListTable } from './common/ListTable'
 import axios from "axios"
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
-import Box from '@material-ui/core/Box';
 
 import './App.css';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
 
 function App() {
-  // const [state, setState] = useState([] as any)
-  const [state, setState] = useState({ chartData: []})
+  const [state, setState] = useState({ chartData: [], count: 0})
   const [countries, setCountries] = useState({ chartData: []})
 
   const mystyles: CSSProperties = {
@@ -34,7 +32,6 @@ function App() {
 
 
   const getUniversitiesData = (countries, data) =>{
-    //var results = data.filter( university => countries.includes(university.country) )
     var universitiesData = data.reduce((total, n) => {
           var data = total
           if(countries.includes(n.country)){
@@ -51,11 +48,16 @@ function App() {
       return universitiesData
   }
 
+  const parseChartData = data => {
+    var result = data.reduce((total, n) => (
+        { 
+            ...total, 
+            [n.country]: total[n.country] ? total[n.country] + 1 : 1
+        }),{});
+    return result
+}
+
   useEffect(() => {
-    let chartData = {
-      chartData: [{ "name": "SG", "value": 55}, { "name": "MY", "value": 22}]
-    }
-    //setState({...state, chartData})
     let countries = ["United States", "Angola", "Singapore", "India", "China", "UK", "Sierra Leone", "Brazil", "Japan", "Portugal"]
 
     //let url = "https://cors-anywhere.herokuapp.com/http://universities.hipolabs.com/search?country=";
@@ -74,11 +76,9 @@ function App() {
     })
 
     Promise.all(promises).then(() => {
-
-      //TODO: This can be used to get total universities count
-      console.log(universities.length)
+      var universityData = parseChartData(universities)
       setState(prevState => {
-        return { chartData: universities}
+        return { chartData: universityData, count: universities.length}
       })
 
       // Get selected university name list
@@ -98,7 +98,7 @@ function App() {
             <Grid item xs={12} style={topLeftSection}>
               <h2>Total No. Of Universities (10 Countries) </h2>
               <div style={mystyles}>
-                { state.chartData.length}
+                { state.count}
               </div>
               <Divider variant="middle" />
             </Grid>
