@@ -1,5 +1,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## CORS Policy Blocked
+
+For chrome browser, the Moesif Origins & CORS Changer extension allows the error message "No 'Access-Control-Allow-Origin' header from requested resource" to be bypassed
+
 ## Available Scripts
 
 In the project directory, you can run:
